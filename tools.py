@@ -58,6 +58,11 @@ class Tools(object):
         for table in ignoreTables.split(","):
             sqlIgnoreTables += " --ignore-table=" + db + "." + table
 
+        print "Limpando Backups Anterioes"
+
+        cleanLine = "rm " + backupFolder + db + "*"
+        os.system(cleanLine)
+
         print "Gerando arquivo de backup para base"
 
         dumpLine += sqlIgnoreTables + " --add-drop-table --skip-triggers --add-drop-database --set-gtid-purged=OFF --databases " + db + " > " + backupName
@@ -87,8 +92,9 @@ class Tools(object):
         tempDict = {}
 
         for linha in arquivo:
-            if linha[:1] == "#":
+            if linha[:1] == "#" or re.search("[^a-zA-Z0-9 \n\t\r]",linha) == None:
                 continue
+
 
             temp = linha.split("=")
 
