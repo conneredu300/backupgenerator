@@ -1,7 +1,0 @@
-[fadivale1]
-database=fadivale__espelho
-host=192.168.254.50
-user=root
-password=14Versa20@
-backupFolder=~/eduardo/teste/
-[END]

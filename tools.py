@@ -44,7 +44,7 @@ class Tools(object):
         print "Criando Diretorio"
 
         if not os.path.exists(backupFolder):
-            os.makedirs(backupFolder)
+            sh.mkdir(backupFolder)
 
         if "name" in dados:
             name = dados["name"] + ".sql"
@@ -57,11 +57,6 @@ class Tools(object):
 
         for table in ignoreTables.split(","):
             sqlIgnoreTables += " --ignore-table=" + db + "." + table
-
-        print "Limpando Backups Anterioes"
-
-        cleanLine = "rm " + backupFolder + db + "*"
-        os.system(cleanLine)
 
         print "Gerando arquivo de backup para base"
 
