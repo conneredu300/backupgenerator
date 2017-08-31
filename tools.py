@@ -51,7 +51,7 @@ class Tools(object):
         else:
             name = "backup" + ".sql"
 
-        backupName = backupFolder + db + (self.data.replace(" ", "-")).replace(":", "-") + name
+        backupName = backupFolder + "tmp-" + db + (self.data.replace(" ", "-")).replace(":", "-") + name
 
         sqlIgnoreTables = ""
 
@@ -75,7 +75,7 @@ class Tools(object):
 
         print "Limpando cache"
 
-        cleanLine = "rm " + backupName
+        cleanLine = "rm " + backupFolder + "tmp-*"
         os.system(cleanLine)
 
         return 1
