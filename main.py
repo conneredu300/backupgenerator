@@ -18,7 +18,7 @@ sh = Sh()
 arquivo=open(sys.argv[1],"r")
 
 if re.sub('.*\.','',arquivo.name) != "txt":
-    print "Arquivo com formato invalido"
+    print "Formato invalido"
     exit(1)
 
 arrDados = []
