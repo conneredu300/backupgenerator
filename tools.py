@@ -35,7 +35,7 @@ class Tools(object):
         if "backupFolder" in dados:
             backupFolder = dados["backupFolder"]
         else:
-            backupFolder = "./backups/"
+            backupFolder = "./bg-folder/"
 
         ignoreTables = dados["ignoreTables"] if "ignoreTables" in dados else ""
         dumpLine = "mysqldump -u " + user + " -p" + passwd + " -h " + host + " -P " + port
@@ -43,8 +43,8 @@ class Tools(object):
         print "Iniciando backup de:\"" + db + "\" em: " + self.data
         print "Criando Diretorio"
 
-        if not os.path.isdir(backupFolder):
-            sh.mkdir(backupFolder)
+        if not os.path.exists(backupFolder):
+            os.makedirs(backupFolder)
 
         if "name" in dados:
             name = dados["name"] + ".sql"
