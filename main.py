@@ -4,6 +4,7 @@ from tools import *
 def main():
     tools = Tools(sys.argv[1])
     tools.lerArquivo()
+    tools.prepareData()
     for dados in tools.arrDados:
         tools.backup(dados)
 

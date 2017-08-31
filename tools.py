@@ -96,21 +96,25 @@ class Tools(object):
         tempDict = {}
 
         for linha in arquivo:
-            if linha[:1] == "#" or re.search("[^a-zA-Z0-9 \n\t\r]",linha) == None:
+            if linha[:1] == "#":
                 continue
 
 
             temp = linha.split("=")
 
-            if (len(temp) < 2):
-                tempDict["HEADER"] = re.sub('[^a-zA-Z0-9]+', '', temp[0])
-            else:
+            if len(temp) > 1:
                 tempDict[temp[0]] = temp[1].replace('\n', '')
-
-            if temp[0] == "\n" or linha[:5] == "[END]" or linha == "":
+            elif temp[0] == "\n":
                 self.arrDados.insert(i, tempDict)
                 tempDict = {}
 
             i += 1
 
         arquivo.close()
+
+    def prepareData(self):
+        a = -1;
+        for dados in self.arrDados:
+            a += 1
+            if len(dados) == 0:
+                self.arrDados.pop(a)
