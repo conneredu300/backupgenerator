@@ -35,12 +35,17 @@ class Tools(object):
         if "backupFolder" in dados:
             backupFolder = dados["backupFolder"]
         else:
-            backupFolder = "./bg-folder/"
+            backupFolder = "./"
 
         ignoreTables = dados["ignoreTables"] if "ignoreTables" in dados else ""
         dumpLine = "mysqldump -u " + user + " -p" + passwd + " -h " + host + " -P " + port
 
         print "Iniciando backup de:\"" + db + "\" em: " + self.data
+        print "Limpando Backups Anteriores"
+
+        cleanLine = "rm " + backupFolder + db +"*"
+        os.system(cleanLine)
+
         print "Criando Diretorio"
 
         if not os.path.exists(backupFolder):
@@ -49,9 +54,9 @@ class Tools(object):
         if "name" in dados:
             name = dados["name"] + ".sql"
         else:
-            name = "backup" + ".sql"
+            name = "bkp" + ".sql"
 
-        backupName = backupFolder + "tmp-" + db + (self.data.replace(" ", "-")).replace(":", "-") + name
+        backupName = "tmp-" + db + (self.data.replace(" ", "-")).replace(":", "-") + name
 
         sqlIgnoreTables = ""
 
@@ -60,12 +65,12 @@ class Tools(object):
 
         print "Gerando arquivo de backup para base"
 
-        dumpLine += sqlIgnoreTables + " --add-drop-table --skip-triggers --add-drop-database --set-gtid-purged=OFF --databases " + db + " > " + backupName
+        dumpLine += sqlIgnoreTables + " --add-drop-table --skip-triggers --add-drop-database --set-gtid-purged=OFF --databases " + db + " > " + backupFolder + backupName
         os.system(dumpLine)
 
         print "Compactando os dados"
 
-        tarLine = "tar -cf " + backupName.replace("tmp-","") + ".tar.gz " + backupName
+        tarLine = "tar -cf " + backupFolder + backupName.replace("tmp-","") + ".tar.gz " + backupFolder + backupName
         os.system(tarLine)
 
         print "Limpando cache"
