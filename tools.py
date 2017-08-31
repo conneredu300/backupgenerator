@@ -70,7 +70,7 @@ class Tools(object):
 
         print "Compactando os dados"
 
-        tarLine = "tar -cf " + backupName + ".tar.gz " + backupName
+        tarLine = "tar -cf " + backupName.replace("tmp-","") + ".tar.gz " + backupName
         os.system(tarLine)
 
         print "Limpando cache"
