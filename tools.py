@@ -37,7 +37,11 @@ class Tools(object):
         else:
             backupFolder = "./"
 
-        ignoreTables = dados["ignoreTables"] if "ignoreTables" in dados else ""
+        if "ignoreTables" in dados:
+            ignoreTables = dados["ignoreTables"]
+        else:
+            ignoreTables = ""
+
         dumpLine = "mysqldump -u " + user + " -p" + passwd + " -h " + host + " -P " + port
 
         print "Iniciando backup de:\"" + db + "\" em: " + self.data
