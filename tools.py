@@ -30,7 +30,7 @@ class Tools(object):
         if "port" in dados:
             port = dados["port"]
         else:
-            port = 3306
+            port = "3306"
 
         if "backupFolder" in dados:
             backupFolder = dados["backupFolder"]
